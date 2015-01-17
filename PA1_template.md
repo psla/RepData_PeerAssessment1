@@ -2,6 +2,7 @@
 
 ```
 ## Loading required package: plyr
+## Loading required package: ggplot2
 ```
 
 ## Loading and preprocessing the data
@@ -73,3 +74,17 @@ The median is 1.0395\times 10^{4} steps.
 It basically treats a day without any log as a day with 0 steps taken. Because of this, both the average and the median dropped. But it is unreasonable to assume that missing days are equivalent to days with zero steps. A different approach might be considered (take an average from day before and day after) - however this average would not work for weekends for instance.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+```r
+isWeekend <- function(date) {
+  as.POSIXlt(date,format="%Y-%m-%d")$wday == 0 || as.POSIXlt(date,format="%Y-%m-%d")$wday == 6
+}
+
+activity_complete$weekend <- factor(x = sapply(activity_complete$date, isWeekend), levels = c(FALSE, TRUE), labels = c("weekday", "weekend"))
+
+steps_per_interval = ddply(activity_complete, c("weekend", "interval"), summarize, avg_steps = mean(steps))
+
+qplot(interval, avg_steps, data = steps_per_interval, geom  =	c("line"), ylab = "Number of steps")	+ facet_wrap(~ weekend,nrow=2) 
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
