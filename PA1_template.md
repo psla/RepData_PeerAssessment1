@@ -3,6 +3,13 @@
 
 
 ## Loading and preprocessing the data
+Load required libraries:
+
+```r
+require(plyr)
+require(ggplot2)
+```
+and load the data:
 
 ```r
 activity = read.csv("activity/activity.csv")
@@ -16,7 +23,7 @@ steps_per_day = ddply(activity_complete, c("date"), summarize, total_steps = sum
 hist(steps_per_day$total_steps, main = "Histogram of steps taken per day", xlab = "Total steps per day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 ```r
 avg_steps_per_day = mean(steps_per_day$total_steps)
@@ -32,7 +39,7 @@ steps_per_interval = ddply(activity_complete, c("interval"), summarize, avg_step
 with(steps_per_interval, plot(interval, avg_steps, type = "l"))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 ```r
 max_steps_per_interval = steps_per_interval[which.max(steps_per_interval$avg_steps), ]
@@ -61,7 +68,7 @@ steps_per_day = ddply(activity_with_avg, c("date"), summarize, total_steps = sum
 hist(steps_per_day$total_steps, main = "Histogram of steps taken per day", xlab = "Total steps per day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
 
 ```r
 avg_steps_per_day = mean(steps_per_day$total_steps)
@@ -88,4 +95,4 @@ steps_per_interval = ddply(activity_complete, c("weekend", "interval"), summariz
 qplot(interval, avg_steps, data = steps_per_interval, geom  =	c("line"), ylab = "Number of steps")	+ facet_wrap(~ weekend,nrow=2) 
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 

@@ -66,6 +66,10 @@ img {
 
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
+<p>Load required libraries:</p>
+<pre class="r"><code>require(plyr)
+require(ggplot2)</code></pre>
+<p>and load the data:</p>
 <pre class="r"><code>activity = read.csv(&quot;activity/activity.csv&quot;)
 activity_complete = activity[complete.cases(activity),]</code></pre>
 </div>

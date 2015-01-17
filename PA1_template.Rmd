@@ -9,11 +9,15 @@ output:
 ## numbers >= 10^5 will be denoted in scientific notation,
 ## and rounded to 2 digits
 options(scipen = 6, digits = 1)
-require(plyr)
-require(ggplot2)
 ```
 
 ## Loading and preprocessing the data
+Load required libraries:
+```{r, message = F}
+require(plyr)
+require(ggplot2)
+```
+and load the data:
 ```{r}
 activity = read.csv("activity/activity.csv")
 activity_complete = activity[complete.cases(activity),]
