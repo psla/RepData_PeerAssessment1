@@ -17,6 +17,7 @@ activity_complete = activity[complete.cases(activity),]
 ## What is mean total number of steps taken per day?
 ```{r}
 steps_per_day = ddply(activity_complete, c("date"), summarize, total_steps = sum(steps))
+hist(steps_per_day$total_steps, main = "Histogram of steps taken per day", xlab = "Total steps per day")
 avg_steps_per_day = mean(steps_per_day$total_steps)
 rounded_avg_steps_per_day = round(avg_steps_per_day, 0)
 median_steps_per_day = median(steps_per_day$total_steps)
@@ -25,8 +26,13 @@ Average total number of steps taken per day is `r rounded_avg_steps_per_day`.
 The median is `r median_steps_per_day` steps.
 
 ## What is the average daily activity pattern?
+```{r}
+steps_per_interval = ddply(activity_complete, c("interval"), summarize, avg_steps = mean(steps))
+with(steps_per_interval, plot(interval, avg_steps, type = "l"))
+max_steps_per_interval = steps_per_interval[which.max(steps_per_interval$avg_steps), ]
+```
 
-
+The most steps (```r max_steps_per_interval$avg_steps```) were taken at interval ```r max_steps_per_interval$interval```
 
 ## Imputing missing values
 
